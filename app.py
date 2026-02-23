@@ -106,6 +106,14 @@ def logout():
     session.pop("user", None)
     return redirect(url_for("login"))
 
+@app.route("/history")
+def history():
+    conn = sqlite3.connect("students.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM records")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template("history.html", records=data)
 
 if __name__ == "__main__":
     app.run(debug=True)
