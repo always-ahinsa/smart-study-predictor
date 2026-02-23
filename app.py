@@ -71,6 +71,26 @@ def submit():
     else:
         result = "FAIL"
 
+    # 🔥 STEP 1 DATABASE SAVE (ADD THIS PART)
+    conn = sqlite3.connect("students.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS records (
+        attendance INT,
+        study_hours INT,
+        internal_marks INT,
+        score REAL,
+        result TEXT
+    )
+    """)
+
+    cursor.execute("INSERT INTO records VALUES (?, ?, ?, ?, ?)",
+                   (attendance, study_hours, internal_marks, score, result))
+
+    conn.commit()
+    conn.close()
+
     return render_template(
         "result.html",
         attendance=attendance,
