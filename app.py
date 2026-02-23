@@ -108,6 +108,9 @@ def logout():
 
 @app.route("/history")
 def history():
+    if "user" not in session:
+        return redirect(url_for("login"))
+
     conn = sqlite3.connect("students.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM records")
