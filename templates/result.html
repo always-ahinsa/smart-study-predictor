@@ -2,51 +2,37 @@
 <html>
 <head>
     <title>Prediction Result</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            margin: 50px auto;
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .grade {
+            font-size: 28px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>📊 Prediction Result</h1>
-
+<div class="card">
+    <h2>📊 Prediction Result</h2>
     <p><b>Attendance:</b> {{ attendance }}%</p>
     <p><b>Study Hours:</b> {{ study_hours }}</p>
     <p><b>Internal Marks:</b> {{ internal_marks }}</p>
-    <p><b>Score:</b> {{ score }}</p>
-
-    <div class="result">
-        🎯 Predicted Grade: {{ result }}
-    </div>
-
-    <canvas id="myChart" width="300" height="200"></canvas>
-
-    <br>
-    <a href="/">⬅ Go Back</a>
+    <h3>Predicted Score: {{ score }}</h3>
+    <div class="grade">Result: {{ result }}</div>
 </div>
-
-<script>
-const ctx = document.getElementById('myChart');
-
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Attendance', 'Study Hours', 'Internal Marks'],
-        datasets: [{
-            label: 'Student Data',
-            data: [{{ attendance }}, {{ study_hours }}, {{ internal_marks }}],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script>
 
 </body>
 </html>
